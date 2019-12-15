@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{CA09C389-7F2C-4690-B22C-5938F74EBCD7}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>LiveSplit.LiveKeys</RootNamespace>
+    <AssemblyName>LiveSplit.LiveKeys</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="LiveSplit.Core">
+      <HintPath>..\..\..\..\Software\LiveSplit\LiveSplit.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="UpdateManager">
+      <HintPath>..\..\..\..\Software\LiveSplit\UpdateManager.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\submodules\SKeys9\SKeys9\SKeys9\Configuration.cs">
+      <Link>Configuration.cs</Link>
+    </Compile>
+    <Compile Include="..\submodules\SKeys9\SKeys9\SKeys9\EventArgs.cs">
+      <Link>EventArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\submodules\SKeys9\SKeys9\SKeys9\FrameworkS\Bits.cs">
+      <Link>Bits.cs</Link>
+    </Compile>
+    <Compile Include="..\submodules\SKeys9\SKeys9\SKeys9\FrameworkS\Dictionaries.cs">
+      <Link>Dictionaries.cs</Link>
+    </Compile>
+    <Compile Include="..\submodules\SKeys9\SKeys9\SKeys9\FrameworkS\Math.cs">
+      <Link>Math.cs</Link>
+    </Compile>
+    <Compile Include="..\submodules\SKeys9\SKeys9\SKeys9\Hooks.cs">
+      <Link>Hooks.cs</Link>
+    </Compile>
+    <Compile Include="..\submodules\SKeys9\SKeys9\SKeys9\Input.cs">
+      <Link>Input.cs</Link>
+    </Compile>
+    <Compile Include="..\submodules\SKeys9\SKeys9\SKeys9\Keys.cs">
+      <Link>Keys.cs</Link>
+    </Compile>
+    <Compile Include="..\submodules\SKeys9\SKeys9\SKeys9\Stopwatches.cs">
+      <Link>Stopwatches.cs</Link>
+    </Compile>
+    <Compile Include="LiveKeysComponent.cs" />
+    <Compile Include="LiveKeysFactory.cs" />
+    <Compile Include="LiveKeysSettings.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="LiveKeysSettings.Designer.cs">
+      <DependentUpon>LiveKeysSettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="LiveKeysSettings.resx">
+      <DependentUpon>LiveKeysSettings.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>copy /y "$(TargetDir)$(TargetName).dll" "F:\Software\LiveSplit\Components\$(TargetName).dll"
+
+copy /y "$(TargetDir)$(TargetName).pdb" "F:\Software\LiveSplit\Components\$(TargetName).pdb"</PostBuildEvent>
+  </PropertyGroup>
+</Project>
