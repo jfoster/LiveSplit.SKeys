@@ -28,41 +28,42 @@ namespace LiveSplit.LiveKeys
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
-            this.widthUpDown = new System.Windows.Forms.NumericUpDown();
-            ((System.ComponentModel.ISupportInitialize)(this.widthUpDown)).BeginInit();
+            this.sizeLabel = new System.Windows.Forms.Label();
+            this.sizeUpDown = new System.Windows.Forms.NumericUpDown();
+            ((System.ComponentModel.ISupportInitialize)(this.sizeUpDown)).BeginInit();
             this.SuspendLayout();
             // 
-            // label1
+            // sizeLabel
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(5, 6);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Width";
+            this.sizeLabel.AutoSize = true;
+            this.sizeLabel.Location = new System.Drawing.Point(5, 6);
+            this.sizeLabel.Name = "sizeLabel";
+            this.sizeLabel.Size = new System.Drawing.Size(27, 13);
+            this.sizeLabel.TabIndex = 0;
+            this.sizeLabel.Text = "Size";
             // 
-            // widthUpDown
+            // sizeUpDown
             // 
-            this.widthUpDown.Location = new System.Drawing.Point(46, 4);
-            this.widthUpDown.Maximum = new decimal(new int[] {
+            this.sizeUpDown.Location = new System.Drawing.Point(46, 4);
+            this.sizeUpDown.Maximum = new decimal(new int[] {
             300,
             0,
             0,
             0});
-            this.widthUpDown.Name = "widthUpDown";
-            this.widthUpDown.Size = new System.Drawing.Size(120, 20);
-            this.widthUpDown.TabIndex = 1;
+            this.sizeUpDown.Name = "sizeUpDown";
+            this.sizeUpDown.Size = new System.Drawing.Size(120, 20);
+            this.sizeUpDown.TabIndex = 1;
             // 
             // LiveKeysSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.widthUpDown);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.sizeUpDown);
+            this.Controls.Add(this.sizeLabel);
             this.Name = "LiveKeysSettings";
             this.Size = new System.Drawing.Size(450, 150);
-            ((System.ComponentModel.ISupportInitialize)(this.widthUpDown)).EndInit();
+            this.Load += new System.EventHandler(this.LiveKeysSettings_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.sizeUpDown)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -70,7 +71,7 @@ namespace LiveSplit.LiveKeys
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.NumericUpDown widthUpDown;
+        private System.Windows.Forms.Label sizeLabel;
+        private System.Windows.Forms.NumericUpDown sizeUpDown;
     }
 }

@@ -12,34 +12,29 @@ namespace LiveSplit.LiveKeys
 {
     class LiveKeysComponent : IComponent
     {
-        private LiveKeysFactory Factory;
-        private LiveKeysSettings Settings;
-        private InfoTextComponent TextComponent;
+        private readonly LiveKeysFactory Factory;
+        private readonly LiveKeysSettings Settings;
 
-        private Hooks Hooks;
+        public Hooks Hooks { get; }
         private Input Input;
+
+        private string text;
 
         public LiveKeysComponent(LiveSplitState state, LiveKeysFactory f)
         {
             Factory = f;
-            Settings = new LiveKeysSettings(f);
 
-            TextComponent = new InfoTextComponent("", "");
-            TextComponent.NameLabel.HorizontalAlignment = StringAlignment.Near;
-            TextComponent.NameLabel.ForeColor = state.LayoutSettings.TextColor;
-            TextComponent.ValueLabel.HorizontalAlignment = StringAlignment.Near;
-            TextComponent.ValueLabel.ForeColor = state.LayoutSettings.TextColor;
+            Settings = new LiveKeysSettings()
+            {
+                ComponentHeight = 60f,
+                ComponentWidth = 100f,
+                Version = f.Version,
+            };
 
-            AddHooks();
-        }
-
-        void AddHooks()
-        {
-            Hooks = new Hooks();
             Input = new Input();
-
             Input.OnKeysChanged += UpdateText;
 
+            Hooks = new Hooks();
             Hooks.OnKeyDown += Input.OnButtonDown;
             Hooks.OnKeyUp += Input.OnButtonUp;
             Hooks.OnMouseDown += Input.OnMouseDown;
@@ -47,64 +42,79 @@ namespace LiveSplit.LiveKeys
             Hooks.OnMouseScroll += Input.OnMouseScroll;
             Hooks.OnMouseMove += Input.OnMouseMove;
 
-            Hooks.EnableHooks();
+            //Hooks.EnableHooks();
         }
+
 
         void UpdateText(object sender, ChangeEventArgs e)
         {
-            string buttontext = string.Empty;
+            text = string.Empty;
             foreach (string s in e.ActiveButtons)
             {
-                buttontext += (s + " ");
+                text += (s + " ");
             }
-            TextComponent.InformationName = buttontext;
-
-            string scrolltext = string.Empty;
+            text += "\n";
             foreach (string s in e.ScrollCount.Keys)
             {
                 if (e.ScrollCount[s] != 0)
                 {
-                    scrolltext += (s + " " + e.ScrollCount[s] + " ");
+                    text += (s + " " + e.ScrollCount[s] + " ");
                 }
             }
-            TextComponent.InformationValue = scrolltext;
+        }
+
+        private Font AdjustedFont(Graphics g, string s, Font f, SizeF cs, float maxFontSize, float minFontSize)
+        {
+            for (float AdjustedSize = maxFontSize; AdjustedSize >= minFontSize; AdjustedSize--)
+            {
+                var newFont = new Font(f.Name, AdjustedSize, f.Style);
+                var newSize = g.MeasureString(s, newFont);
+                if (cs.Width > newSize.Width && cs.Height > newSize.Height)
+                {
+                    return newFont;
+                }
+            }
+            return f;
         }
 
         public string ComponentName => Factory.ComponentName;
 
-        public float PaddingTop => TextComponent.PaddingTop;
+        public float PaddingTop => 8f;
 
-        public float PaddingBottom => TextComponent.PaddingBottom;
+        public float PaddingBottom => 8f;
 
-        public float PaddingLeft => TextComponent.PaddingLeft;
+        public float PaddingLeft => 8f;
 
-        public float PaddingRight => TextComponent.PaddingRight;
+        public float PaddingRight => 8f;
 
-        public float HorizontalWidth => Settings.ComponentWidth != 0 ? Settings.ComponentWidth : 256f;
+        public float HorizontalWidth => Settings.ComponentWidth;
+
+        public float VerticalHeight => Settings.ComponentHeight;
 
         public float MinimumHeight => 0f;
-
-        public float VerticalHeight => TextComponent.VerticalHeight;
 
         public float MinimumWidth => 0f;
 
         public IDictionary<string, Action> ContextMenuControls => null;
 
-        private void PrepareDraw(LiveSplitState state, LayoutMode mode)
-        {
-            TextComponent.PrepareDraw(state, mode);
-        }
-
         public void DrawHorizontal(Graphics g, LiveSplitState state, float height, Region clipRegion)
         {
-            PrepareDraw(state, LayoutMode.Horizontal);
-            TextComponent.DrawHorizontal(g, state, height, clipRegion);
+            Draw(g, state, HorizontalWidth, height, clipRegion);
         }
 
         public void DrawVertical(Graphics g, LiveSplitState state, float width, Region clipRegion)
         {
-            PrepareDraw(state, LayoutMode.Vertical);
-            TextComponent.DrawVertical(g, state, width, clipRegion);
+            Draw(g, state, width, VerticalHeight, clipRegion);
+        }
+
+        private void Draw(Graphics g, LiveSplitState state, float width, float height, Region clipRegion)
+        {
+            var size = new SizeF(width, height);
+            var font = state.LayoutSettings.TextFont;
+            var color = state.LayoutSettings.TextColor;
+
+            font = AdjustedFont(g, text, font, size, font.SizeInPoints, 5);
+            g.DrawString(text, font, new SolidBrush(color), new RectangleF(new PointF(0, 0), size), new StringFormat());
         }
 
         public Control GetSettingsControl(LayoutMode mode)
@@ -125,14 +135,14 @@ namespace LiveSplit.LiveKeys
 
         public void Update(IInvalidator invalidator, LiveSplitState state, float width, float height, LayoutMode mode)
         {
-            TextComponent.LongestString = TextComponent.InformationName;
-
-            TextComponent.Update(invalidator, state, width, height, mode);
+            if (invalidator != null)
+            {
+                invalidator.Invalidate(0, 0, width, height);
+            }
         }
 
         public void Dispose()
         {
-            TextComponent.Dispose();
         }
     }
 }
