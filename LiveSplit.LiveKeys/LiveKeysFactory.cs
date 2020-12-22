@@ -2,6 +2,7 @@ using System;
 using LiveSplit.Model;
 using LiveSplit.LiveKeys;
 using LiveSplit.UI.Components;
+using GitInfo;
 
 [assembly: ComponentFactory(typeof(LiveKeysFactory))]
 
@@ -11,7 +12,7 @@ namespace LiveSplit.LiveKeys
     {
         public string ComponentName => "Live Keys";
 
-        public string Description => "Input visualiser component for LiveSplit";
+        public string Description => "SKeys component for LiveSplit";
 
         public ComponentCategory Category => ComponentCategory.Information;
 
@@ -21,7 +22,7 @@ namespace LiveSplit.LiveKeys
 
         public string UpdateURL => "";
 
-        public Version Version => Version.Parse("0.0.1");
+        public Version Version => GitVersion.Short.ToVersion();
 
         public IComponent Create(LiveSplitState state) => new LiveKeysComponent(state, this);
     }

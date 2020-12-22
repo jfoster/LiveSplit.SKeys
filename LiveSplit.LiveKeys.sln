@@ -1,20 +1,30 @@
-
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29424.173
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiveSplit.LiveKeys", "LiveSplit.LiveKeys\LiveSplit.LiveKeys.csproj", "{CA09C389-7F2C-4690-B22C-5938F74EBCD7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SKeys.Core", "SKeys\SKeys.Core\SKeys.Core.csproj", "{D721B0CC-4B1E-472F-AC7D-21707CAD36C1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Release Candidate|Any CPU = Release Candidate|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{CA09C389-7F2C-4690-B22C-5938F74EBCD7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CA09C389-7F2C-4690-B22C-5938F74EBCD7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA09C389-7F2C-4690-B22C-5938F74EBCD7}.Release Candidate|Any CPU.ActiveCfg = Release|Any CPU
+		{CA09C389-7F2C-4690-B22C-5938F74EBCD7}.Release Candidate|Any CPU.Build.0 = Release|Any CPU
 		{CA09C389-7F2C-4690-B22C-5938F74EBCD7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CA09C389-7F2C-4690-B22C-5938F74EBCD7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D721B0CC-4B1E-472F-AC7D-21707CAD36C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D721B0CC-4B1E-472F-AC7D-21707CAD36C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D721B0CC-4B1E-472F-AC7D-21707CAD36C1}.Release Candidate|Any CPU.ActiveCfg = Release|Any CPU
+		{D721B0CC-4B1E-472F-AC7D-21707CAD36C1}.Release Candidate|Any CPU.Build.0 = Release|Any CPU
+		{D721B0CC-4B1E-472F-AC7D-21707CAD36C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D721B0CC-4B1E-472F-AC7D-21707CAD36C1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

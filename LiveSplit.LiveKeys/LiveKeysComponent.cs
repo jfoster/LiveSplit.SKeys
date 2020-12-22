@@ -6,7 +6,7 @@ using System.Xml;
 using LiveSplit.Model;
 using LiveSplit.UI;
 using LiveSplit.UI.Components;
-using SKeys9;
+using SKeys.Core;
 
 namespace LiveSplit.LiveKeys
 {
@@ -26,7 +26,7 @@ namespace LiveSplit.LiveKeys
 
             Settings = new LiveKeysSettings()
             {
-                ComponentHeight = 60f,
+                ComponentHeight = 50f,
                 ComponentWidth = 100f,
                 Version = f.Version,
             };
@@ -107,6 +107,16 @@ namespace LiveSplit.LiveKeys
             Draw(g, state, width, VerticalHeight, clipRegion);
         }
 
+        //private void Draw(Graphics g, LiveSplitState state, float width, float height, Region clipRegion)
+        //{
+        //    var size = new SizeF(width, height);
+        //    var font = state.LayoutSettings.TextFont;
+        //    var color = state.LayoutSettings.TextColor;
+
+        //    font = AdjustedFont(g, text, font, size, font.SizeInPoints, 5);
+        //    g.DrawString(text, font, new SolidBrush(color), new RectangleF(new PointF(0, 0), size), new StringFormat());
+        //}
+
         private void Draw(Graphics g, LiveSplitState state, float width, float height, Region clipRegion)
         {
             var size = new SizeF(width, height);
@@ -114,6 +124,9 @@ namespace LiveSplit.LiveKeys
             var color = state.LayoutSettings.TextColor;
 
             font = AdjustedFont(g, text, font, size, font.SizeInPoints, 5);
+
+            SimpleLabel label = new SimpleLabel();
+
             g.DrawString(text, font, new SolidBrush(color), new RectangleF(new PointF(0, 0), size), new StringFormat());
         }
 

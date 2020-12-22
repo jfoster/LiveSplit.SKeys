@@ -28,6 +28,7 @@ namespace LiveSplit.LiveKeys
         public void SetSettings(XmlNode settings)
         {
             Version = SettingsHelper.ParseVersion(settings[nameof(Version)]);
+            ComponentHeight = SettingsHelper.ParseFloat(settings[nameof(ComponentHeight)]);
             ComponentWidth = SettingsHelper.ParseFloat(settings[nameof(ComponentWidth)]);
         }
 
@@ -35,6 +36,7 @@ namespace LiveSplit.LiveKeys
         {
             var parent = document.CreateElement("Settings");
             SettingsHelper.CreateSetting(document, parent, nameof(Version), Version);
+            SettingsHelper.CreateSetting(document, parent, nameof(ComponentHeight), ComponentHeight);
             SettingsHelper.CreateSetting(document, parent, nameof(ComponentWidth), ComponentWidth);
             return parent;
         }
