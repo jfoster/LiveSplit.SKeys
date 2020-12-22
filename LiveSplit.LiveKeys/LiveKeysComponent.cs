@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Xml;
+using GraphicsExtensions;
 using LiveSplit.Model;
 using LiveSplit.UI;
 using LiveSplit.UI.Components;
@@ -17,8 +18,7 @@ namespace LiveSplit.LiveKeys
 
         public Hooks Hooks { get; }
         private Input Input;
-
-        private string text;
+        private SimpleLabel Label;
 
         public LiveKeysComponent(LiveSplitState state, LiveKeysFactory f)
         {
@@ -31,6 +31,8 @@ namespace LiveSplit.LiveKeys
                 Version = f.Version,
             };
 
+            Label = new SimpleLabel();
+
             Input = new Input();
             Input.OnKeysChanged += UpdateText;
 
@@ -42,39 +44,25 @@ namespace LiveSplit.LiveKeys
             Hooks.OnMouseScroll += Input.OnMouseScroll;
             Hooks.OnMouseMove += Input.OnMouseMove;
 
-            //Hooks.EnableHooks();
+            Hooks.EnableHooks();
         }
 
 
         void UpdateText(object sender, ChangeEventArgs e)
         {
-            text = string.Empty;
+            Label.Text = string.Empty;
             foreach (string s in e.ActiveButtons)
             {
-                text += (s + " ");
+                Label.Text += (s + " ");
             }
-            text += "\n";
+            Label.Text += "\n";
             foreach (string s in e.ScrollCount.Keys)
             {
                 if (e.ScrollCount[s] != 0)
                 {
-                    text += (s + " " + e.ScrollCount[s] + " ");
+                    Label.Text += (s + " " + e.ScrollCount[s] + " ");
                 }
             }
-        }
-
-        private Font AdjustedFont(Graphics g, string s, Font f, SizeF cs, float maxFontSize, float minFontSize)
-        {
-            for (float AdjustedSize = maxFontSize; AdjustedSize >= minFontSize; AdjustedSize--)
-            {
-                var newFont = new Font(f.Name, AdjustedSize, f.Style);
-                var newSize = g.MeasureString(s, newFont);
-                if (cs.Width > newSize.Width && cs.Height > newSize.Height)
-                {
-                    return newFont;
-                }
-            }
-            return f;
         }
 
         public string ComponentName => Factory.ComponentName;
@@ -107,27 +95,20 @@ namespace LiveSplit.LiveKeys
             Draw(g, state, width, VerticalHeight, clipRegion);
         }
 
-        //private void Draw(Graphics g, LiveSplitState state, float width, float height, Region clipRegion)
-        //{
-        //    var size = new SizeF(width, height);
-        //    var font = state.LayoutSettings.TextFont;
-        //    var color = state.LayoutSettings.TextColor;
-
-        //    font = AdjustedFont(g, text, font, size, font.SizeInPoints, 5);
-        //    g.DrawString(text, font, new SolidBrush(color), new RectangleF(new PointF(0, 0), size), new StringFormat());
-        //}
-
         private void Draw(Graphics g, LiveSplitState state, float width, float height, Region clipRegion)
         {
-            var size = new SizeF(width, height);
+            Label.Width = width;
+            Label.Height = height;
+
+            Label.ForeColor = state.LayoutSettings.TextColor;
+            Label.ShadowColor = state.LayoutSettings.ShadowsColor;
+            Label.OutlineColor = state.LayoutSettings.TextOutlineColor;
+            Label.HasShadow = state.LayoutSettings.DropShadows;
+
             var font = state.LayoutSettings.TextFont;
-            var color = state.LayoutSettings.TextColor;
+            Label.Font = g.AdjustFontSize(font, 5, font.SizeInPoints, Label.Text, width, height);
 
-            font = AdjustedFont(g, text, font, size, font.SizeInPoints, 5);
-
-            SimpleLabel label = new SimpleLabel();
-
-            g.DrawString(text, font, new SolidBrush(color), new RectangleF(new PointF(0, 0), size), new StringFormat());
+            Label.Draw(g);
         }
 
         public Control GetSettingsControl(LayoutMode mode)

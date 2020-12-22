@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GitVersion.cs" />
+    <Compile Include="GraphicsExtensions.cs" />
     <Compile Include="LiveKeysComponent.cs" />
     <Compile Include="LiveKeysFactory.cs" />
     <Compile Include="LiveKeysSettings.cs">

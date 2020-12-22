@@ -1,8 +1,8 @@
 using System;
-using LiveSplit.Model;
-using LiveSplit.LiveKeys;
-using LiveSplit.UI.Components;
 using GitInfo;
+using LiveSplit.LiveKeys;
+using LiveSplit.Model;
+using LiveSplit.UI.Components;
 
 [assembly: ComponentFactory(typeof(LiveKeysFactory))]
 
