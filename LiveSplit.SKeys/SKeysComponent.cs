@@ -9,22 +9,22 @@ using LiveSplit.UI;
 using LiveSplit.UI.Components;
 using SKeys.Core;
 
-namespace LiveSplit.LiveKeys
+namespace LiveSplit.SKeys
 {
-    class LiveKeysComponent : IComponent
+    class SKeysComponent : IComponent
     {
-        private readonly LiveKeysFactory Factory;
-        private readonly LiveKeysSettings Settings;
+        private readonly SKeysFactory Factory;
+        private readonly SKeysSettings Settings;
 
         public Hooks Hooks { get; }
         private Input Input;
         private SimpleLabel Label;
 
-        public LiveKeysComponent(LiveSplitState state, LiveKeysFactory f)
+        public SKeysComponent(LiveSplitState state, SKeysFactory f)
         {
             Factory = f;
 
-            Settings = new LiveKeysSettings()
+            Settings = new SKeysSettings()
             {
                 ComponentHeight = 50f,
                 ComponentWidth = 100f,

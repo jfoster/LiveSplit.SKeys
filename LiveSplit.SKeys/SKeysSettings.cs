@@ -3,9 +3,9 @@ using System.Windows.Forms;
 using LiveSplit.UI;
 using System.Xml;
 
-namespace LiveSplit.LiveKeys
+namespace LiveSplit.SKeys
 {
-    public partial class LiveKeysSettings : UserControl
+    public partial class SKeysSettings : UserControl
     {
         public event EventHandler OnSettingsChanged;
 
@@ -15,7 +15,7 @@ namespace LiveSplit.LiveKeys
         public float ComponentHeight { get; set; }
         public float ComponentWidth { get; set; }
 
-        public LiveKeysSettings()
+        public SKeysSettings()
         {
             InitializeComponent();
         }
@@ -41,7 +41,7 @@ namespace LiveSplit.LiveKeys
             return parent;
         }
 
-        private void LiveKeysSettings_Load(object sender, EventArgs e)
+        private void SKeysSettings_Load(object sender, EventArgs e)
         {
             if (Mode == LayoutMode.Vertical)
             {

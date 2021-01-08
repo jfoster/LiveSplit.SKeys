@@ -1,6 +1,6 @@
-namespace LiveSplit.LiveKeys
+namespace LiveSplit.SKeys
 {
-    partial class LiveKeysSettings
+    partial class SKeysSettings
     {
         /// <summary> 
         /// Required designer variable.
@@ -54,15 +54,15 @@ namespace LiveSplit.LiveKeys
             this.sizeUpDown.Size = new System.Drawing.Size(120, 20);
             this.sizeUpDown.TabIndex = 1;
             // 
-            // LiveKeysSettings
+            // SKeysSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.sizeUpDown);
             this.Controls.Add(this.sizeLabel);
-            this.Name = "LiveKeysSettings";
+            this.Name = "SKeysSettings";
             this.Size = new System.Drawing.Size(450, 150);
-            this.Load += new System.EventHandler(this.LiveKeysSettings_Load);
+            this.Load += new System.EventHandler(this.SKeysSettings_Load);
             ((System.ComponentModel.ISupportInitialize)(this.sizeUpDown)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

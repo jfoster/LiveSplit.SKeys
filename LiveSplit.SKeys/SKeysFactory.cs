@@ -1,16 +1,16 @@
 using System;
 using GitInfo;
-using LiveSplit.LiveKeys;
+using LiveSplit.SKeys;
 using LiveSplit.Model;
 using LiveSplit.UI.Components;
 
-[assembly: ComponentFactory(typeof(LiveKeysFactory))]
+[assembly: ComponentFactory(typeof(SKeysFactory))]
 
-namespace LiveSplit.LiveKeys
+namespace LiveSplit.SKeys
 {
-    public class LiveKeysFactory : IComponentFactory
+    public class SKeysFactory : IComponentFactory
     {
-        public string ComponentName => "Live Keys";
+        public string ComponentName => "SKeys";
 
         public string Description => "SKeys component for LiveSplit";
 
@@ -24,6 +24,6 @@ namespace LiveSplit.LiveKeys
 
         public Version Version => GitVersion.Short.ToVersion();
 
-        public IComponent Create(LiveSplitState state) => new LiveKeysComponent(state, this);
+        public IComponent Create(LiveSplitState state) => new SKeysComponent(state, this);
     }
 }

@@ -1,2 +1,2 @@
-LiveSplit.LiveKeys
+LiveSplit.SKeys
 ===
