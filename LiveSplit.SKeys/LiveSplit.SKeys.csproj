@@ -80,9 +80,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy /y "$(TargetDir)$(TargetName).dll" G:\Apps\LiveSplit\Components\$(TargetName).dll"
-
-copy /y "$(TargetDir)$(TargetName).pdb" G:\Apps\LiveSplit\Components\$(TargetName).pdb"</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <Import Project="..\packages\GitInfo.2.1.2\build\GitInfo.targets" Condition="Exists('..\packages\GitInfo.2.1.2\build\GitInfo.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
@@ -90,5 +89,11 @@ copy /y "$(TargetDir)$(TargetName).pdb" G:\Apps\LiveSplit\Components\$(TargetNam
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\GitInfo.2.1.2\build\GitInfo.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\GitInfo.2.1.2\build\GitInfo.targets'))" />
+  </Target>
+  <ItemGroup>
+    <BinFiles Include="$(TargetDir)*.dll" />
+  </ItemGroup>
+  <Target Name="AfterBuild">
+    <Copy SourceFiles="@(BinFiles)" DestinationFolder="G:\Apps\LiveSplit\Components\" SkipUnchangedFiles="true" />
   </Target>
 </Project>
